@@ -387,4 +387,74 @@ function initPhotoViewer(){
   stage.addEventListener('pointercancel', finishDrag);
 }
 
-document.addEventListener('DOMContentLoaded', () => { renderStudents(); renderTeachers(); renderProfile(); applySiteConfig(); initHeroScrollCue(); initCosmicScene(); initPhotoViewer(); initScrollDock(); });
+function initArticleViewer(){
+  const images = Array.from(document.querySelectorAll('.article-gallery img'));
+  if(!images.length || document.querySelector('.article-lightbox')) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'article-lightbox';
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-label','Просмотр фотографии');
+  overlay.innerHTML = '<button class="article-lightbox-close" type="button" aria-label="Закрыть">×</button><button class="article-lightbox-nav prev" type="button" aria-label="Предыдущее фото">‹</button><img class="article-lightbox-img" alt="" draggable="false"><span class="article-lightbox-counter"></span><button class="article-lightbox-nav next" type="button" aria-label="Следующее фото">›</button>';
+  overlay.hidden = true;
+  document.body.appendChild(overlay);
+  const preview = overlay.querySelector('.article-lightbox-img');
+  const closeButton = overlay.querySelector('.article-lightbox-close');
+  const prevButton = overlay.querySelector('.article-lightbox-nav.prev');
+  const nextButton = overlay.querySelector('.article-lightbox-nav.next');
+  const counter = overlay.querySelector('.article-lightbox-counter');
+  const many = images.length > 1;
+  prevButton.hidden = !many;
+  nextButton.hidden = !many;
+  counter.hidden = !many;
+  let current = 0;
+  let lastFocus = null;
+  const show = (index) => {
+    current = (index + images.length) % images.length;
+    const source = images[current];
+    preview.src = source.currentSrc || source.src;
+    preview.alt = source.alt || '';
+    counter.textContent = `${current + 1} / ${images.length}`;
+  };
+  const open = (index, source) => {
+    lastFocus = source || document.activeElement;
+    show(index);
+    overlay.hidden = false;
+    document.body.classList.add('article-lightbox-locked');
+    closeButton.focus({ preventScroll: true });
+  };
+  const close = () => {
+    overlay.hidden = true;
+    document.body.classList.remove('article-lightbox-locked');
+    preview.removeAttribute('src');
+    if(lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  };
+  const step = (delta) => show(current + delta);
+  images.forEach((image, index) => {
+    image.classList.add('is-zoomable');
+    image.setAttribute('tabindex','0');
+    image.setAttribute('role','button');
+    image.addEventListener('click', () => open(index, image));
+    image.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); open(index, image); }
+    });
+  });
+  prevButton.addEventListener('click', (event) => { event.stopPropagation(); step(-1); });
+  nextButton.addEventListener('click', (event) => { event.stopPropagation(); step(1); });
+  closeButton.addEventListener('click', close);
+  overlay.addEventListener('click', (event) => { if(event.target === overlay) close(); });
+  document.addEventListener('keydown', (event) => {
+    if(overlay.hidden) return;
+    if(event.key === 'Escape') close();
+    else if(event.key === 'ArrowLeft') step(-1);
+    else if(event.key === 'ArrowRight') step(1);
+  });
+  let touchStartX = 0;
+  overlay.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+  overlay.addEventListener('touchend', (event) => {
+    const delta = event.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(delta) > 40) step(delta < 0 ? 1 : -1);
+  }, { passive: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderStudents(); renderTeachers(); renderProfile(); applySiteConfig(); initHeroScrollCue(); initCosmicScene(); initPhotoViewer(); initScrollDock(); initArticleViewer(); });
