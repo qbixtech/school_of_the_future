@@ -30,7 +30,7 @@ function applySiteConfig(){
 window.applySiteConfig = applySiteConfig;
 
 const students = [
-  ['Байтимиров Руслан','Активист, мультипотенциал','Байтимиров Руслан/BY.jpg','ruslan-baitimirov'],['Бунаков Константин','Капитан команды «Гефест»','Бунаков Константин/BUN.jpg','konstantin-bunakov'],['Бусов Кирилл','Инженер команды «МикоБу»','Бусов Кирилл/BUS.jpg','kirill-busov'],['Виноградов Максим','Универсальная личность','Виноградов Максим/V.jpg','maksim-vinogradov'],['Динер Кирилл','Спец по 3D-технологиям','Динер Кирилл/D.jpg','kirill-diner'],['Жданович Сергей','Инженер команды «Гефест»','Жданович Сергей/J.jpg','sergey-zhdanovich'],['Ильин Максим','Программист команды «Кракен»','Ильин Максим/I.jpg','maksim-ilin'],['Ковальчук Дмитрий','Программист команды «Итальянцы»','Ковальчук Дмитрий/KOC.jpg','dmitry-kovalchuk'],['Ковтунец Михаил','Участник школьных проектов','Ковтунец Михаил/MK.jpg','mihail-kovtunets'],['Константинов Михаил','Исследователь и командный игрок','Константинов Михаил/KN.jpg','mihail-konstantinov'],['Корж Михаил','Участник классных инициатив','Корж Михаил/KR.jpg','mihail-korzh'],['Кучумов Николай','Творческий участник класса','Кучумов Николай/KC.jpg','nikolay-kuchumov'],['Лелюшкина Серафима','Участница проектов класса','Лелюшкина Серафима/LL.jpg','serafima-lelyushkina'],['Литвинова Таисия','Инициатор школьных событий','Литвинова Таисия/LT.jpg','taisya-litvinova'],['Малышева Диана','Участница творческих проектов','Малышева Диана/ML.jpg','diana-malysheva'],['Мартинович Артём','Участник команды класса','Мартинович Артём/MR.jpg','artyom-martinovich'],['Миков Владимир','Участник исследовательских проектов','Миков Владимир/MV.jpg','vladimir-mikov'],['Мунько Олег','Участник школьных событий','Мунько Олег/MN.jpg','oleg-munko'],['Орлов Тимофей','Участник спортивных инициатив','Орлов Тимофей/O.jpg','timofey-orlov'],['Павличенко Кузьма','Участник команды класса','Павличенко Кузьма/P.jpg','kuzma-pavlichenko'],['Паладьев Даниил','Участник инженерных проектов','Паладьев Даниил/PLD.jpg','daniil-paladiev'],['Ромадин Степан','Участник школьных событий','Ромадин Степан/R.jpg','stepan-romadin'],['Скрягина Анастасия','Участница творческих проектов','Скрягина Анастасия/SK.jpg','anastasia-skryagina'],['Стопудов Тимур','Участник команды класса','Стопудов Тимур/S.jpg','timur-stopudov'],['Тепляков Дмитрий','Участник исследовательских проектов','Тепляков Дмитрий/TPL.jpg','dmitry-teplyakov'],['Тимофти Валерия','Участница классных инициатив','Тимофти Валерия/TM.jpg','valeria-timofti'],['Трус Ева','Участница школьных событий','Трус Ева/TR.jpg','eva-trus'],['Хаустов Григорий','Участник инженерных проектов','Хаустов Григорий/H.jpg','grigory-haustov'],['Хуснулина Жасмин','Участница творческих проектов','Хуснулина Жасмин/HS.jpg','jasmin-husnulina'],['Чугунова Владислава','Участница командных проектов','Чугунова Владислава/CH.jpg','vladislava-chugunova'],['Новый участник','Карточка для заполнения','', 'new-student']
+  ['Байтимиров Руслан','Активист, мультипотенциал','Байтимиров Руслан/BY.png','ruslan-baitimirov'],['Бунаков Константин','Капитан команды «Гефест»','Бунаков Константин/BUN.jpg','konstantin-bunakov'],['Бусов Кирилл','Инженер команды «МикоБу»','Бусов Кирилл/BUS.jpg','kirill-busov'],['Виноградов Максим','Универсальная личность','Виноградов Максим/V.jpg','maksim-vinogradov'],['Динер Кирилл','Спец по 3D-технологиям','Динер Кирилл/D.jpg','kirill-diner'],['Жданович Сергей','Инженер команды «Гефест»','Жданович Сергей/J.jpg','sergey-zhdanovich'],['Ильин Максим','Программист команды «Кракен»','Ильин Максим/I.jpg','maksim-ilin'],['Ковальчук Дмитрий','Программист команды «Итальянцы»','Ковальчук Дмитрий/KOC.jpg','dmitry-kovalchuk'],['Ковтунец Михаил','Участник школьных проектов','Ковтунец Михаил/MK.jpg','mihail-kovtunets'],['Константинов Михаил','Исследователь и командный игрок','Константинов Михаил/KN.jpg','mihail-konstantinov'],['Корж Михаил','Участник классных инициатив','Корж Михаил/KR.jpg','mihail-korzh'],['Кучумов Николай','Творческий участник класса','Кучумов Николай/KC.jpg','nikolay-kuchumov'],['Лелюшкина Серафима','Участница проектов класса','Лелюшкина Серафима/LL.jpg','serafima-lelyushkina'],['Литвинова Таисия','Инициатор школьных событий','Литвинова Таисия/LT.png','taisya-litvinova'],['Малышева Диана','Участница творческих проектов','Малышева Диана/ML.jpg','diana-malysheva'],['Мартинович Артём','Участник команды класса','Мартинович Артём/MR.jpg','artyom-martinovich'],['Миков Владимир','Участник исследовательских проектов','Миков Владимир/MV.jpg','vladimir-mikov'],['Мунько Олег','Участник школьных событий','Мунько Олег/MN.jpg','oleg-munko'],['Орлов Тимофей','Участник спортивных инициатив','Орлов Тимофей/O.jpg','timofey-orlov'],['Павличенко Кузьма','Участник команды класса','Павличенко Кузьма/P.jpg','kuzma-pavlichenko'],['Паладьев Даниил','Участник инженерных проектов','Паладьев Даниил/PLD.jpg','daniil-paladiev'],['Ромадин Степан','Участник школьных событий','Ромадин Степан/R.jpg','stepan-romadin'],['Скрягина Анастасия','Участница творческих проектов','Скрягина Анастасия/SK.jpg','anastasia-skryagina'],['Стопудов Тимур','Участник команды класса','Стопудов Тимур/S.jpg','timur-stopudov'],['Тепляков Дмитрий','Участник исследовательских проектов','Тепляков Дмитрий/TPL.jpg','dmitry-teplyakov'],['Тимофти Валерия','Участница классных инициатив','Тимофти Валерия/TM.jpg','valeria-timofti'],['Трус Ева','Участница школьных событий','Трус Ева/TR.jpg','eva-trus'],['Хаустов Григорий','Участник инженерных проектов','Хаустов Григорий/H.jpg','grigory-haustov'],['Хуснулина Жасмин','Участница творческих проектов','Хуснулина Жасмин/HS.jpg','jasmin-husnulina'],['Чугунова Владислава','Участница командных проектов','Чугунова Владислава/CH.jpg','vladislava-chugunova'],['Новый участник','Карточка для заполнения','', 'new-student']
 ];
 
 const teachers = [
@@ -121,22 +121,288 @@ function initCosmicScene(){
   }
 }
 
-function initLightbox(){
-  const images = Array.from(document.querySelectorAll('.article-gallery img, .memory-grid img'));
-  if(!images.length) return;
+function prefersReducedMotion(){
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function initScrollDock(){
+  if(document.querySelector('.scroll-dock')) return;
+  const dock = document.createElement('div');
+  dock.className = 'scroll-dock';
+  dock.setAttribute('aria-label','Листать страницу');
+  dock.innerHTML = '<button type="button" data-scroll="-1" aria-label="Прокрутить вверх" title="Вверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button><button type="button" data-scroll="1" aria-label="Прокрутить вниз" title="Вниз"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></button>';
+  document.body.appendChild(dock);
+  const up = dock.querySelector('[data-scroll="-1"]');
+  const down = dock.querySelector('[data-scroll="1"]');
+  dock.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-scroll]');
+    if(!button) return;
+    const direction = Number(button.dataset.scroll);
+    window.scrollBy({ top: direction * Math.round(window.innerHeight * .86), behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  });
+  const sync = () => {
+    const doc = document.documentElement;
+    up.hidden = window.scrollY <= 8;
+    down.hidden = window.innerHeight + window.scrollY >= doc.scrollHeight - 8;
+  };
+  window.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync);
+  sync();
+}
+
+function initPhotoViewer(){
+  const cards = Array.from(document.querySelectorAll('.memory-card'));
+  if(!cards.length || document.querySelector('.lightbox')) return;
+
+  const grid = cards[0].parentElement;
+  let items = [];
+
+  const collectItems = () => cards
+    .filter((card) => !card.classList.contains('is-hidden'))
+    .map((card) => {
+      const image = card.querySelector('img');
+      const caption = card.querySelector('figcaption');
+      return {
+        card,
+        src: image ? image.getAttribute('src') : '',
+        alt: image ? (image.getAttribute('alt') || '') : '',
+        caption: caption ? caption.textContent.trim() : ''
+      };
+    });
+
+  const albumNames = [];
+  cards.forEach((card) => {
+    const album = card.dataset.album;
+    if(album && !albumNames.includes(album)) albumNames.push(album);
+  });
+  const hasAlbums = albumNames.length > 1;
+
+  const albumBar = document.createElement('div');
+  albumBar.className = 'album-bar';
+  albumBar.setAttribute('role','tablist');
+  albumBar.setAttribute('aria-label','Альбомы фотографий');
+
+  const applyFilter = (album, animate) => {
+    const visible = [];
+    cards.forEach((card) => {
+      const match = !album || card.dataset.album === album;
+      card.classList.toggle('is-hidden', !match);
+      if(match) visible.push(card);
+    });
+    if(grid) grid.classList.toggle('album-active', Boolean(album));
+    if(animate && !prefersReducedMotion()){
+      visible.forEach((card, position) => {
+        card.animate(
+          [
+            { opacity: 0, transform: 'translateY(12px) scale(.96)' },
+            { opacity: 1, transform: 'translateY(0) scale(1)' }
+          ],
+          { duration: 360, delay: position * 45, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'backwards' }
+        );
+      });
+    }
+    albumBar.querySelectorAll('.album-chip').forEach((chip) => {
+      const value = chip.dataset.album;
+      const isActive = (album === null && value === '') || value === album;
+      chip.classList.toggle('active', isActive);
+      chip.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+  };
+
+  if(hasAlbums){
+    const chips = [{ label: 'Все фото', value: null, count: cards.length }];
+    albumNames.forEach((name) => {
+      chips.push({ label: name, value: name, count: cards.filter((card) => card.dataset.album === name).length });
+    });
+    chips.forEach((data) => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'album-chip';
+      chip.dataset.album = data.value === null ? '' : data.value;
+      chip.setAttribute('role','tab');
+      chip.innerHTML = `<span>${data.label}</span><span class="album-count">${data.count}</span>`;
+      chip.addEventListener('click', () => applyFilter(data.value, true));
+      albumBar.appendChild(chip);
+    });
+    if(grid && grid.parentNode) grid.parentNode.insertBefore(albumBar, grid);
+    applyFilter(null, false);
+  }
+
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.setAttribute('role','dialog');
   overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-label','Просмотр фотографий');
+  overlay.innerHTML = '<div class="lightbox-ui"><span class="lightbox-count"></span><span class="lightbox-hint">Листайте стрелками ← →</span></div><button class="lightbox-close" type="button" aria-label="Закрыть просмотр">×</button><button class="lightbox-nav prev" type="button" aria-label="Предыдущее фото">‹</button><div class="lightbox-stage"><img class="lightbox-img" alt="" draggable="false"></div><button class="lightbox-nav next" type="button" aria-label="Следующее фото">›</button><p class="lightbox-caption"></p>';
+  document.body.appendChild(overlay);
+
+  const stage = overlay.querySelector('.lightbox-stage');
+  const imgEl = overlay.querySelector('.lightbox-img');
+  const captionEl = overlay.querySelector('.lightbox-caption');
+  const countEl = overlay.querySelector('.lightbox-count');
+  const closeBtn = overlay.querySelector('.lightbox-close');
+  const prevBtn = overlay.querySelector('.lightbox-nav.prev');
+  const nextBtn = overlay.querySelector('.lightbox-nav.next');
+
+  const cache = new Map();
+  let index = 0;
+  let isOpen = false;
+  let busy = false;
+  let lastFocused = null;
+  let pointerId = null;
+  let startX = 0;
+  let startY = 0;
+  let dragging = false;
+  let swallowClick = false;
+
+  const loadImage = (src) => {
+    if(!src) return Promise.resolve();
+    if(cache.has(src)) return cache.get(src);
+    const promise = new Promise((resolve) => {
+      const image = new Image();
+      image.onload = image.onerror = () => resolve(image);
+      image.src = src;
+    });
+    cache.set(src, promise);
+    return promise;
+  };
+
+  const paint = (position, direction) => {
+    const item = items[position];
+    imgEl.src = item.src;
+    imgEl.alt = item.alt;
+    captionEl.textContent = item.caption;
+    countEl.textContent = `${position + 1} / ${items.length}`;
+    if(prefersReducedMotion()) return;
+    imgEl.animate(
+      [
+        { opacity: 0, transform: `translateX(${(direction || 0) * 7}%) scale(.94)` },
+        { opacity: 1, transform: 'translateX(0) scale(1)' }
+      ],
+      { duration: 440, easing: 'cubic-bezier(.22,.61,.36,1)' }
+    );
+  };
+
+  const show = (position, direction) => {
+    if(!isOpen || busy) return;
+    const target = (position + items.length) % items.length;
+    busy = true;
+    loadImage(items[target].src).then(() => {
+      const settle = () => { index = target; paint(index, direction); busy = false; };
+      if(prefersReducedMotion() || !direction){ settle(); return; }
+      imgEl.animate(
+        [
+          { opacity: 1, transform: 'translateX(0) scale(1)' },
+          { opacity: 0, transform: `translateX(${direction * -7}%) scale(.94)` }
+        ],
+        { duration: 230, easing: 'ease-in' }
+      ).finished.then(settle, settle);
+    });
+  };
+
+  const openAt = (card) => {
+    items = collectItems();
+    const position = items.findIndex((item) => item.card === card);
+    if(position < 0 || !items[position].src) return;
+    lastFocused = document.activeElement;
+    index = position;
+    isOpen = true;
+    overlay.classList.add('open');
+    document.body.classList.add('lightbox-locked');
+    paint(index, 0);
+    loadImage(items[(index + 1) % items.length].src);
+    loadImage(items[(index - 1 + items.length) % items.length].src);
+    closeBtn.focus({ preventScroll: true });
+  };
+
+  const close = () => {
+    if(!isOpen) return;
+    isOpen = false;
+    overlay.classList.remove('open');
+    document.body.classList.remove('lightbox-locked');
+    if(lastFocused && lastFocused.focus) lastFocused.focus({ preventScroll: true });
+  };
+
+  cards.forEach((card) => {
+    card.tabIndex = 0;
+    card.setAttribute('role','button');
+    const image = card.querySelector('img');
+    const caption = card.querySelector('figcaption');
+    const label = caption ? caption.textContent.trim() : (image ? (image.getAttribute('alt') || '') : '');
+    card.setAttribute('aria-label', `Открыть фото: ${label}`);
+    card.addEventListener('click', () => openAt(card));
+    card.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); openAt(card); }
+    });
+  });
+
+  prevBtn.addEventListener('click', (event) => { event.stopPropagation(); show(index - 1, -1); });
+  nextBtn.addEventListener('click', (event) => { event.stopPropagation(); show(index + 1, 1); });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (event) => {
+    if(swallowClick){ swallowClick = false; return; }
+    if(event.target === overlay || event.target === stage) close();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if(!isOpen) return;
+    if(event.key === 'ArrowRight'){ event.preventDefault(); show(index + 1, 1); }
+    else if(event.key === 'ArrowLeft'){ event.preventDefault(); show(index - 1, -1); }
+    else if(event.key === 'Escape'){ close(); }
+  });
+
+  stage.addEventListener('pointerdown', (event) => {
+    if(event.pointerType === 'mouse' && event.button !== 0) return;
+    pointerId = event.pointerId;
+    startX = event.clientX;
+    startY = event.clientY;
+    dragging = false;
+    try { stage.setPointerCapture(pointerId); } catch(_) {}
+  });
+  stage.addEventListener('pointermove', (event) => {
+    if(event.pointerId !== pointerId) return;
+    const dx = event.clientX - startX;
+    const dy = event.clientY - startY;
+    if(Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) dragging = true;
+    if(dragging && !prefersReducedMotion()){
+      imgEl.style.transform = `translateX(${dx * .4}px)`;
+      imgEl.style.opacity = String(Math.max(.35, 1 - Math.abs(dx) / 700));
+    }
+  });
+  const finishDrag = (event) => {
+    if(event.pointerId !== pointerId) return;
+    const dx = event.clientX - startX;
+    const dy = event.clientY - startY;
+    imgEl.style.transform = '';
+    imgEl.style.opacity = '';
+    const wasDragging = dragging;
+    pointerId = null;
+    dragging = false;
+    if(wasDragging){
+      swallowClick = true;
+      if(Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) show(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    }
+  };
+  stage.addEventListener('pointerup', finishDrag);
+  stage.addEventListener('pointercancel', finishDrag);
+}
+
+function initArticleViewer(){
+  const images = Array.from(document.querySelectorAll('.article-gallery img'));
+  if(!images.length || document.querySelector('.article-lightbox')) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'article-lightbox';
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
   overlay.setAttribute('aria-label','Просмотр фотографии');
-  overlay.innerHTML = '<button class="lightbox-close" type="button" aria-label="Закрыть">×</button><button class="lightbox-nav prev" type="button" aria-label="Предыдущее фото">‹</button><img class="lightbox-img" alt=""><span class="lightbox-counter"></span><button class="lightbox-nav next" type="button" aria-label="Следующее фото">›</button>';
+  overlay.innerHTML = '<button class="article-lightbox-close" type="button" aria-label="Закрыть">×</button><button class="article-lightbox-nav prev" type="button" aria-label="Предыдущее фото">‹</button><img class="article-lightbox-img" alt="" draggable="false"><span class="article-lightbox-counter"></span><button class="article-lightbox-nav next" type="button" aria-label="Следующее фото">›</button>';
   overlay.hidden = true;
   document.body.appendChild(overlay);
-  const preview = overlay.querySelector('.lightbox-img');
-  const closeButton = overlay.querySelector('.lightbox-close');
-  const prevButton = overlay.querySelector('.lightbox-nav.prev');
-  const nextButton = overlay.querySelector('.lightbox-nav.next');
-  const counter = overlay.querySelector('.lightbox-counter');
+  const preview = overlay.querySelector('.article-lightbox-img');
+  const closeButton = overlay.querySelector('.article-lightbox-close');
+  const prevButton = overlay.querySelector('.article-lightbox-nav.prev');
+  const nextButton = overlay.querySelector('.article-lightbox-nav.next');
+  const counter = overlay.querySelector('.article-lightbox-counter');
   const many = images.length > 1;
   prevButton.hidden = !many;
   nextButton.hidden = !many;
@@ -154,14 +420,14 @@ function initLightbox(){
     lastFocus = source || document.activeElement;
     show(index);
     overlay.hidden = false;
-    document.body.classList.add('lightbox-open');
-    closeButton.focus();
+    document.body.classList.add('article-lightbox-locked');
+    closeButton.focus({ preventScroll: true });
   };
   const close = () => {
     overlay.hidden = true;
-    document.body.classList.remove('lightbox-open');
+    document.body.classList.remove('article-lightbox-locked');
     preview.removeAttribute('src');
-    if(lastFocus && lastFocus.focus) lastFocus.focus();
+    if(lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   };
   const step = (delta) => show(current + delta);
   images.forEach((image, index) => {
@@ -191,4 +457,4 @@ function initLightbox(){
   }, { passive: true });
 }
 
-document.addEventListener('DOMContentLoaded', () => { renderStudents(); renderTeachers(); renderProfile(); applySiteConfig(); initHeroScrollCue(); initCosmicScene(); initLightbox(); });
+document.addEventListener('DOMContentLoaded', () => { renderStudents(); renderTeachers(); renderProfile(); applySiteConfig(); initHeroScrollCue(); initCosmicScene(); initPhotoViewer(); initScrollDock(); initArticleViewer(); });

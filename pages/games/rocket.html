@@ -1,0 +1,45 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ракета-змейка · 8 «К»</title><link rel="stylesheet" href="../../style.css"><style>
+/* Игровая страница: вся игра помещается в один экран без прокрутки. */
+.game-body{display:flex;flex-direction:column;min-height:100dvh}
+.game-main{flex:1 1 auto;display:flex}
+.game-fill{display:flex;gap:30px;align-items:stretch;padding:20px 0;min-height:0}
+.game-info{flex:0 1 400px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.game-info .back-link{margin-bottom:2px}
+.game-title{font:700 clamp(30px,3.2vw,46px)/1.03 'Space Grotesk',sans-serif;letter-spacing:-.05em;margin:0}
+.game-rules{margin:0;color:var(--muted);font-size:14px;max-width:440px}
+.game-hint{margin:0;color:var(--blue-deep);font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.game-shell{position:relative;flex:1 1 auto;min-width:0;display:flex;flex-direction:column;background:var(--ink);border-radius:26px;padding:20px;box-shadow:var(--shadow);overflow:hidden}
+.game-shell:before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 10% 22%,rgba(255,255,255,.75) 0 1px,transparent 1.8px),radial-gradient(circle at 74% 16%,rgba(37,183,227,.85) 0 1px,transparent 1.8px),radial-gradient(circle at 88% 72%,rgba(184,229,27,.8) 0 1px,transparent 1.7px),radial-gradient(circle at 42% 86%,rgba(255,255,255,.6) 0 1px,transparent 1.7px);background-size:270px 230px,330px 260px,400px 300px,310px 250px;opacity:.5;pointer-events:none}
+.game-hud,.game-stage,.game-pad{position:relative;z-index:1}
+.game-hud{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px;flex:0 0 auto}
+.game-hud .tag b{font-family:'Space Grotesk',sans-serif}
+.game-status{margin-left:auto;color:#9bb4c1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.game-stage{flex:1 1 auto;min-height:200px;position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(37,183,227,.28);background:#04121f;touch-action:none}
+.game-stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.game-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:9px;padding:26px 28px;background:linear-gradient(180deg,rgba(4,18,31,.78),rgba(4,18,31,.94))}
+.game-overlay[hidden]{display:none}
+.game-overlay-kicker{margin:0;color:var(--lime);font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+.game-overlay h3{font:700 clamp(24px,3vw,38px)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.04em;margin:0;color:#fff}
+.game-overlay p:not(.game-overlay-kicker){margin:0;color:#b2c8d6;max-width:360px;font-size:14px}
+.game-overlay .button{margin-top:8px}
+.game-pad{display:flex;gap:8px;justify-content:center;margin-top:14px;flex:0 0 auto}
+.game-pad button{display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;font-size:17px;cursor:pointer;touch-action:manipulation;transition:background .2s ease,transform .2s ease}
+.game-pad button:hover{background:rgba(37,183,227,.28)}
+.game-pad button:active{background:var(--blue-deep);transform:translateY(1px)}
+@media(max-height:820px){
+  .game-fill{padding:10px 0}
+  .game-shell{padding:12px}
+  .game-hud{margin-bottom:8px}
+  .game-pad{margin-top:10px}
+  .game-pad button{width:40px;height:40px}
+  .game-hint{display:none}
+}
+@media(max-width:900px){
+  .game-main{display:block}
+  .game-fill{flex-direction:column;gap:16px;padding:16px 0}
+  .game-info{flex:0 0 auto;gap:8px}
+  .game-rules{max-width:none}
+  .game-stage{flex:0 0 auto;width:100%;aspect-ratio:1/1;min-height:0}
+}
+@media(max-width:720px){.game-shell{padding:14px}.game-hud .game-status{margin-left:0;width:100%}.game-overlay{padding:18px}.game-pad button{width:46px;height:46px}}
+</style></head><body class="game-body"><header class="site-header"><div class="container nav-inner"><a class="brand" href="../../index.html"><img src="../../assets/logo_school.jpg" alt="Школа будущего"><span><strong>Школа будущего</strong><small>класс 8 «К»</small></span></a><nav class="nav-menu"><a href="../../index.html">Главная</a><a href="../news.html">Новости</a><a href="../histrory.html">История</a><a href="../photos.html">Фотоальбом</a><a class="active" href="../games.html">Игры</a><a class="nav-cta" href="../achievements.html">Достижения года</a></nav></div></header><main class="game-main"><section class="container game-fill"><div class="game-info"><a class="back-link" href="../games.html">← Все игры</a><p class="section-kicker">Аркада · сбор звёзд</p><h1 class="game-title">Ракета-змейка</h1><p class="game-rules">Управление — стрелки или WASD, на телефоне — свайп по полю или кнопки. Собирайте звёзды: шлейф растёт, скорость увеличивается. Столкновение со стеной или собственным шлейфом завершает миссию. Пробел или «P» — пауза.</p><p class="game-hint">Рекорд сохраняется в браузере</p></div><div class="game-shell"><div class="game-hud"><span class="tag">Звёзды · <b id="game-score">0</b></span><span class="tag">Рекорд · <b id="game-best">0</b></span><span class="game-status" id="game-status" aria-live="polite">Готово к старту</span></div><div class="game-stage"><canvas id="rocket-game" width="440" height="440" aria-label="Игра: ракета собирает звёзды"></canvas><div class="game-overlay" id="game-overlay"><p class="game-overlay-kicker" id="game-overlay-kicker">Сбор звёзд</p><h3 id="game-overlay-title">Полёт начинается</h3><p id="game-overlay-text">Нажмите кнопку, стрелку или WASD — и ракета отправится за звёздами.</p><button class="button primary" id="game-action" type="button">Начать миссию</button></div></div><div class="game-pad"><button type="button" data-dir="left" aria-label="Влево">◀</button><button type="button" data-dir="up" aria-label="Вверх">▲</button><button type="button" data-dir="down" aria-label="Вниз">▼</button><button type="button" data-dir="right" aria-label="Вправо">▶</button></div></div></section></main><footer class="site-footer"><div class="container footer-inner"><p>Школа будущего · 8 «К»</p><nav class="footer-links"><a href="../../index.html">Главная</a><a href="../achievements.html">Достижения</a><a href="../games.html">Игры</a></nav></div></footer><script src="../../script.js"></script><script src="../../site-config.js"></script><script src="../../rocket-game.js"></script></body></html>
