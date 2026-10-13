@@ -19,6 +19,8 @@
   const GRID = 20;
   const SIZE = 440;
   const CELL = SIZE / GRID;
+  const TARGET_CELL = 30;
+  const MIN_CELLS = 8;
   const START_INTERVAL = 155;
   const MIN_INTERVAL = 85;
   const BEST_KEY = 'sotf-rocket-best';
@@ -38,6 +40,12 @@
   const PAD_DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 
   let scale = 1;
+  let viewW = SIZE;
+  let viewH = SIZE;
+  let cols = GRID;
+  let rows = GRID;
+  let cellW = CELL;
+  let cellH = CELL;
   let snake = [];
   let prevSnake = [];
   let dir = { x: 1, y: 0 };
@@ -55,8 +63,8 @@
   const bgStars = [];
   for (let i = 0; i < 72; i += 1) {
     bgStars.push({
-      x: Math.random() * SIZE,
-      y: Math.random() * SIZE,
+      x: Math.random(),
+      y: Math.random(),
       r: Math.random() < 0.3 ? 2 : 1,
       p: Math.random() * Math.PI * 2,
       c: ['#e9fbff', '#25b7e3', '#b8e51b'][i % 3]
@@ -93,20 +101,36 @@
 
   function resize() {
     const rect = canvas.getBoundingClientRect();
-    if (!rect.width) return;
+    if (!rect.width || !rect.height) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const px = Math.max(1, Math.round(rect.width * dpr));
-    if (canvas.width !== px || canvas.height !== px) {
+    const py = Math.max(1, Math.round(rect.height * dpr));
+    if (canvas.width !== px || canvas.height !== py) {
       canvas.width = px;
-      canvas.height = px;
+      canvas.height = py;
     }
-    scale = px / SIZE;
+    scale = dpr;
+    viewW = rect.width;
+    viewH = rect.height;
+    cols = Math.max(MIN_CELLS, Math.round(rect.width / TARGET_CELL));
+    rows = Math.max(MIN_CELLS, Math.round(rect.height / TARGET_CELL));
+    cellW = rect.width / cols;
+    cellH = rect.height / rows;
+    snake.forEach((s) => {
+      s.x = Math.min(s.x, cols - 1);
+      s.y = Math.min(s.y, rows - 1);
+    });
+    prevSnake.forEach((s) => {
+      s.x = Math.min(s.x, cols - 1);
+      s.y = Math.min(s.y, rows - 1);
+    });
+    if (star && (star.x >= cols || star.y >= rows)) spawnStar();
   }
 
   function spawnStar() {
     const free = [];
-    for (let y = 0; y < GRID; y += 1) {
-      for (let x = 0; x < GRID; x += 1) {
+    for (let y = 0; y < rows; y += 1) {
+      for (let x = 0; x < cols; x += 1) {
         if (!snake.some((s) => s.x === x && s.y === y)) free.push({ x, y });
       }
     }
@@ -114,8 +138,8 @@
   }
 
   function reset() {
-    const cx = Math.floor(GRID / 2);
-    const cy = Math.floor(GRID / 2);
+    const cx = Math.floor(cols / 2);
+    const cy = Math.floor(rows / 2);
     snake = [
       { x: cx, y: cy },
       { x: cx - 1, y: cy },
@@ -211,7 +235,7 @@
     prevSnake = snake.map((s) => ({ x: s.x, y: s.y }));
     const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
-    if (head.x < 0 || head.y < 0 || head.x >= GRID || head.y >= GRID) {
+    if (head.x < 0 || head.y < 0 || head.x >= cols || head.y >= rows) {
       gameOver();
       return;
     }
@@ -270,17 +294,18 @@
   function drawStar(now) {
     if (!star) return;
     const pulse = 1 + Math.sin(now / 320) * 0.08;
-    const cx = (star.x + 0.5) * CELL;
-    const cy = (star.y + 0.5) * CELL;
+    const cx = (star.x + 0.5) * cellW;
+    const cy = (star.y + 0.5) * cellH;
+    const cell = (cellW + cellH) / 2;
     ctx.save();
     ctx.shadowColor = C.lime;
     ctx.shadowBlur = 16;
     ctx.fillStyle = C.lime;
-    starPath(cx, cy, CELL * 0.42 * pulse, now / 900);
+    starPath(cx, cy, cell * 0.42 * pulse, now / 900);
     ctx.fill();
     ctx.shadowBlur = 0;
     ctx.fillStyle = 'rgba(255,255,255,.85)';
-    starPath(cx, cy, CELL * 0.15 * pulse, now / 900);
+    starPath(cx, cy, cell * 0.15 * pulse, now / 900);
     ctx.fill();
     ctx.restore();
   }
@@ -300,7 +325,7 @@
       const from = prevSnake[i] || to;
       const x = from.x + (to.x - from.x) * p;
       const y = from.y + (to.y - from.y) * p;
-      pts.push({ x: (x + 0.5) * CELL, y: (y + 0.5) * CELL });
+      pts.push({ x: (x + 0.5) * cellW, y: (y + 0.5) * cellH });
     }
     const tail = pts[pts.length - 1];
     const head = pts[0];
@@ -311,16 +336,16 @@
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.strokeStyle = 'rgba(37,183,227,.16)';
-    ctx.lineWidth = CELL * 0.95;
+    ctx.lineWidth = Math.min(cellW, cellH) * 0.95;
     strokePath(pts);
     ctx.strokeStyle = grad;
-    ctx.lineWidth = CELL * 0.5;
+    ctx.lineWidth = Math.min(cellW, cellH) * 0.5;
     strokePath(pts);
   }
 
   function drawRocket(x, y, rot, now) {
-    const w = CELL * 0.66;
-    const h = CELL * 0.92;
+    const w = Math.min(cellW, cellH) * 0.66;
+    const h = Math.min(cellW, cellH) * 0.92;
     const flick = 0.8 + Math.sin(now / 55) * 0.18 + Math.random() * 0.1;
     ctx.save();
     ctx.translate(x, y);
@@ -392,7 +417,7 @@
       const age = (now - p.t) / 750;
       ctx.globalAlpha = 1 - age;
       ctx.fillStyle = C.lime;
-      ctx.fillText('+1', (p.x + 0.5) * CELL, (p.y + 0.5) * CELL - age * CELL * 1.1);
+      ctx.fillText('+1', (p.x + 0.5) * cellW, (p.y + 0.5) * cellH - age * Math.min(cellW, cellH) * 1.1);
     });
     ctx.restore();
   }
@@ -408,26 +433,29 @@
   function draw(now) {
     ctx.setTransform(scale, 0, 0, scale, 0, 0);
     ctx.fillStyle = C.space;
-    ctx.fillRect(0, 0, SIZE, SIZE);
+    ctx.fillRect(0, 0, viewW, viewH);
 
     bgStars.forEach((s) => {
       ctx.globalAlpha = 0.22 + 0.55 * Math.abs(Math.sin(now / 900 + s.p));
       ctx.fillStyle = s.c;
-      ctx.fillRect(s.x, s.y, s.r, s.r);
+      ctx.fillRect(s.x * viewW, s.y * viewH, s.r, s.r);
     });
     ctx.globalAlpha = 1;
 
     ctx.strokeStyle = 'rgba(37,183,227,.07)';
     ctx.lineWidth = 1;
-    for (let i = 1; i < GRID; i += 1) {
-      const pos = i * CELL;
+    for (let i = 1; i < cols; i += 1) {
+      const pos = i * cellW;
       ctx.beginPath();
       ctx.moveTo(pos, 0);
-      ctx.lineTo(pos, SIZE);
+      ctx.lineTo(pos, viewH);
       ctx.stroke();
+    }
+    for (let i = 1; i < rows; i += 1) {
+      const pos = i * cellH;
       ctx.beginPath();
       ctx.moveTo(0, pos);
-      ctx.lineTo(SIZE, pos);
+      ctx.lineTo(viewW, pos);
       ctx.stroke();
     }
 
@@ -437,8 +465,8 @@
 
     const to = snake[0];
     const from = prevSnake[0] || to;
-    const hx = (from.x + (to.x - from.x) * p + 0.5) * CELL;
-    const hy = (from.y + (to.y - from.y) * p + 0.5) * CELL;
+    const hx = (from.x + (to.x - from.x) * p + 0.5) * cellW;
+    const hy = (from.y + (to.y - from.y) * p + 0.5) * cellH;
     const targetAngle = Math.atan2(dir.y, dir.x) + Math.PI / 2;
     angle = approachAngle(angle, targetAngle, 0.3);
     drawRocket(hx, hy, angle, now);
