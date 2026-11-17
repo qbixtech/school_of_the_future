@@ -122,3 +122,47 @@ body.lightbox-locked{overflow:hidden}
 body.article-lightbox-locked{overflow:hidden}
 @media(max-width:720px){.article-gallery{grid-template-columns:1fr}.article>p{font-size:16px}.article .article-lead{font-size:19px}}
 @media(max-width:600px){.article-lightbox{padding:14px}.article-lightbox-nav{width:44px;height:44px;font-size:28px}.article-lightbox-nav.prev{left:8px}.article-lightbox-nav.next{right:8px}.article-lightbox-close{top:12px;right:12px;width:42px;height:42px;font-size:22px}}
+
+/* Theme switch: light by default, dark via html[data-theme="dark"]. */
+.theme-toggle{display:inline-grid;place-items:center;width:40px;height:40px;margin-left:auto;order:4;padding:0;flex:0 0 auto;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease}
+.theme-toggle:hover{transform:translateY(-1px);border-color:#9bd3e3;color:var(--blue-deep)}
+.theme-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.theme-toggle svg{width:19px;height:19px;display:block}
+body{transition:background-color .3s ease,color .3s ease}
+.site-header{transition:background-color .3s ease,border-color .3s ease}
+
+html[data-theme="dark"]{color-scheme:dark;--ink:#e8f3fa;--ink-2:#c6d9e6;--muted:#94aebe;--paper:#081726;--line:#1d3a51;--blue:#38c4ef;--blue-deep:#7fd6f2;--lime:#c8f03a;--lime-deep:#b8e51b}
+html[data-theme="dark"] body{background:var(--paper);color:var(--ink)}
+html[data-theme="dark"] .site-header{background:rgba(8,23,38,.92)}
+html[data-theme="dark"] .nav-menu a{color:#a9c2d2}
+html[data-theme="dark"] .nav-menu a:hover,html[data-theme="dark"] .nav-menu a.active{background:rgba(37,183,227,.16);color:#bfeaf8}
+html[data-theme="dark"] .nav-menu a.nav-cta{background:#12314a;color:#eaf6fe}
+html[data-theme="dark"] .nav-menu a.nav-cta:hover{background:#1a4a6b;color:#fff}
+html[data-theme="dark"] .skip-link:focus{background:#12314a;color:#fff}
+html[data-theme="dark"] .theme-toggle{background:#0d2133;border-color:#22445d;color:#cfe6f2}
+html[data-theme="dark"] .theme-toggle:hover{border-color:#2f6484;color:#fff}
+html[data-theme="dark"] .section.band,html[data-theme="dark"] .content-section.band{background:#0d2133}
+html[data-theme="dark"] .section.soft-blue{background:#0a1c2e}
+html[data-theme="dark"] .student-card,html[data-theme="dark"] .teacher-card,html[data-theme="dark"] .info-card,html[data-theme="dark"] .news-card{background:#0d2133;box-shadow:0 7px 22px rgba(0,0,0,.28)}
+html[data-theme="dark"] .student-photo{background:linear-gradient(135deg,#0e2b3d,#132a1c)}
+html[data-theme="dark"] .student-action b{background:rgba(37,183,227,.16)}
+html[data-theme="dark"] .student-card:hover,html[data-theme="dark"] .student-card:focus-visible,html[data-theme="dark"] .news-card-link:hover,html[data-theme="dark"] .news-card-link:focus-visible{border-color:#2b5d7d;box-shadow:0 18px 33px rgba(0,0,0,.4)}
+html[data-theme="dark"] .teacher-card:hover{border-color:#2b5d7d;box-shadow:0 15px 30px rgba(0,0,0,.38)}
+html[data-theme="dark"] .placeholder-mark{background:rgba(184,229,27,.14)}
+html[data-theme="dark"] .tag{background:rgba(184,229,27,.14);color:#c8f03a}
+html[data-theme="dark"] .memory-card{background:#0e2234}
+html[data-theme="dark"] .placeholder{background:rgba(255,255,255,.04);border-color:#2a4a5e}
+html[data-theme="dark"] .profile-photo{background:#0e2234}
+html[data-theme="dark"] .album-chip{background:#0d2133;border-color:var(--line);color:#c6d9e6}
+html[data-theme="dark"] .album-chip .album-count{background:rgba(37,183,227,.16);color:#bfeaf8}
+html[data-theme="dark"] .album-chip.active{background:#12314a;border-color:#12314a;color:#fff}
+html[data-theme="dark"] .article-gallery figure{background:#0d2133}
+html[data-theme="dark"] .notice{background:#0d2133}
+html[data-theme="dark"] .achievement-card{background:#0d2133}
+html[data-theme="dark"] .achievement-card:nth-child(2){background:#0b5f86}
+html[data-theme="dark"] .achievement-card:nth-child(3),html[data-theme="dark"] .achievement-card:nth-child(3) strong{color:#172e05}
+html[data-theme="dark"] .site-footer{background:#06121f}
+html[data-theme="dark"] .game-shell{background:#0b2038}
+html[data-theme="dark"] .article-lightbox-img{background:#0b2038}
+html[data-theme="dark"] .game-card{background:#0d2133;border-color:var(--line);box-shadow:0 7px 22px rgba(0,0,0,.28)}
+html[data-theme="dark"] .game-card:hover,html[data-theme="dark"] .game-card:focus-visible{border-color:#2b5d7d;box-shadow:0 18px 33px rgba(0,0,0,.4)}

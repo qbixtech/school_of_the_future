@@ -1,0 +1,94 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Космобиржа · 8 «К»</title><script src="../../theme.js"></script><link rel="icon" type="image/png" href="../../assets/favicon.png"><link rel="stylesheet" href="../../style.css"><style>
+/* Игровая страница: биржа помещается в один экран без прокрутки. */
+.game-body{display:flex;flex-direction:column;min-height:100dvh}
+.game-main{flex:1 1 auto;display:flex}
+.game-fill{display:flex;gap:30px;align-items:stretch;padding:20px 0;min-height:0}
+.game-info{flex:0 1 400px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.game-info .back-link{margin-bottom:2px}
+.game-title{font:700 clamp(30px,3.2vw,46px)/1.03 'Space Grotesk',sans-serif;letter-spacing:-.05em;margin:0}
+.game-rules{margin:0;color:var(--muted);font-size:14px;max-width:440px}
+.game-hint{margin:0;color:var(--blue-deep);font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.game-shell{position:relative;flex:1 1 auto;min-width:0;display:flex;flex-direction:column;background:var(--ink);border-radius:26px;padding:20px;box-shadow:var(--shadow);overflow:hidden}
+.game-shell:before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 10% 22%,rgba(255,255,255,.75) 0 1px,transparent 1.8px),radial-gradient(circle at 74% 16%,rgba(37,183,227,.85) 0 1px,transparent 1.8px),radial-gradient(circle at 88% 72%,rgba(184,229,27,.8) 0 1px,transparent 1.7px),radial-gradient(circle at 42% 86%,rgba(255,255,255,.6) 0 1px,transparent 1.7px);background-size:270px 230px,330px 260px,400px 300px,310px 250px;opacity:.5;pointer-events:none}
+.game-hud,.goal-track,.coin-tabs,.game-stage,.trade-panel{position:relative;z-index:1}
+.game-hud{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px;flex:0 0 auto}
+.game-hud .tag b{font-family:'Space Grotesk',sans-serif}
+.hud-btn{display:inline-flex;align-items:center;min-height:26px;padding:0 10px;border-radius:9px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#dbeaf2;font:800 10px/1 Manrope,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s ease,color .2s ease}
+.hud-btn:hover{background:rgba(37,183,227,.28);color:#fff}
+.hud-btn[hidden]{display:none}
+.game-status{margin-left:auto;color:#9bb4c1;font-size:11px;font-weight:700;letter-spacing:.02em;text-align:right;max-width:46%}
+.goal-track{height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:10px;flex:0 0 auto}
+.goal-track i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--blue),var(--lime));transition:width .45s ease}
+.coin-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:9px;flex:0 0 auto}
+.coin-tab{display:flex;align-items:center;gap:7px;min-width:0;padding:7px 10px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:rgba(255,255,255,.04);color:#cfe6f2;font:800 10px/1 Manrope,sans-serif;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease}
+.coin-tab:hover{background:rgba(255,255,255,.08);color:#fff}
+.coin-tab.is-active{border-color:rgba(184,229,27,.55);background:rgba(184,229,27,.1);color:#fff}
+.coin-tab i{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.coin-tab span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.coin-tab b{margin-left:auto;color:#fff;font:700 10.5px/1 'Space Grotesk',sans-serif;letter-spacing:0;text-transform:none;white-space:nowrap;font-variant-numeric:tabular-nums}
+.coin-tab:not(.is-active) b{color:#a8c0cf}
+.game-stage{flex:1 1 auto;min-height:200px;position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(37,183,227,.28);background:#04121f;touch-action:manipulation}
+.game-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.chart-caption{position:absolute;left:12px;top:10px;z-index:1;display:flex;align-items:baseline;gap:8px;pointer-events:none}
+.chart-caption b{color:#eaf6fe;font:700 11px/1 'Space Grotesk',sans-serif;letter-spacing:.02em}
+.chart-caption span{font:700 10px/1 Manrope,sans-serif;color:var(--lime)}
+.chart-caption span.down{color:#ff8a6b}
+.game-overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:9px;padding:24px 26px;background:linear-gradient(180deg,rgba(4,18,31,.82),rgba(4,18,31,.95))}
+.game-overlay[hidden]{display:none}
+.game-overlay-kicker{margin:0;color:var(--lime);font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+.game-overlay h3{font:700 clamp(24px,3vw,38px)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.04em;margin:0;color:#fff}
+.game-overlay p:not(.game-overlay-kicker){margin:0;color:#b2c8d6;max-width:360px;font-size:14px}
+.game-overlay .button{margin-top:8px}
+.trade-panel{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:10px;padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.045);flex:0 0 auto}
+.trade-facts{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;min-width:0}
+.trade-price{color:#fff;font:700 20px/1 'Space Grotesk',sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.trade-change{font:700 11px/1 Manrope,sans-serif;color:var(--lime);font-variant-numeric:tabular-nums}
+.trade-change.down{color:#ff8a6b}
+.trade-hold{color:#8fa9b8;font-size:10.5px;font-weight:700;white-space:nowrap}
+.trade-hold b{color:#eaf6fe;font-size:12px;font-variant-numeric:tabular-nums}
+.trade-controls{display:flex;align-items:center;gap:6px;margin-left:auto}
+.qty{display:flex;align-items:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;overflow:hidden;background:rgba(0,0,0,.2)}
+.qty button{width:26px;height:30px;border:0;background:transparent;color:#cfe6f2;font-size:13px;line-height:1;cursor:pointer;transition:background .15s ease}
+.qty button:hover{background:rgba(255,255,255,.12)}
+.qty input{width:46px;height:30px;border:0;background:transparent;color:#fff;text-align:center;font:700 12px 'Space Grotesk',sans-serif;-moz-appearance:textfield}
+.qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.trade-btn{height:30px;padding:0 14px;border-radius:9px;border:1px solid transparent;font:800 10px/1 Manrope,sans-serif;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:background .2s ease,color .2s ease,opacity .2s ease}
+.trade-btn.buy{background:var(--blue);color:#04202f}
+.trade-btn.buy:hover{background:#5fcef0}
+.trade-btn.sell{border-color:rgba(184,229,27,.5);color:var(--lime);background:transparent}
+.trade-btn.sell:hover{background:rgba(184,229,27,.14)}
+.trade-btn:disabled{opacity:.3;cursor:not-allowed;pointer-events:none}
+@media(max-height:840px){
+  .game-fill{padding:10px 0}
+  .game-shell{padding:12px}
+  .game-hud{margin-bottom:7px}
+  .game-hint{display:none}
+  .coin-tabs{margin-bottom:7px}
+  .trade-panel{margin-top:7px;padding:8px 10px}
+  .goal-track{margin-bottom:7px}
+}
+@media(max-width:1000px){
+  .game-status{max-width:100%;text-align:left}
+}
+@media(max-width:900px){
+  .game-main{display:block}
+  .game-fill{flex-direction:column;gap:16px;padding:16px 0}
+  .game-info{flex:0 0 auto;gap:8px}
+  .game-rules{max-width:none}
+  .game-stage{flex:0 0 auto;width:100%;aspect-ratio:16/11;min-height:220px}
+}
+@media(max-width:720px){
+  .game-shell{padding:14px}
+  .game-hud .game-status{width:100%;max-width:none;text-align:left}
+  .coin-tab{padding:7px 8px;gap:5px;font-size:9.5px}
+  .coin-tab b{font-size:9.5px}
+  .trade-panel{gap:8px}
+  .trade-controls{margin-left:0;width:100%;justify-content:space-between}
+  .trade-price{font-size:18px}
+  .game-overlay{padding:18px}
+}
+@media(max-width:420px){
+  .trade-btn{padding:0 10px;letter-spacing:.04em}
+  .qty input{width:36px}
+}
+</style></head><body class="game-body"><header class="site-header"><div class="container nav-inner"><a class="brand" href="../../index.html"><img src="../../assets/logo_school.jpg" alt="Школа будущего"><span><strong>Школа будущего</strong><small>класс 8 «К»</small></span></a><nav class="nav-menu"><a href="../../index.html">Главная</a><a href="../news.html">Новости</a><a href="../histrory.html">История</a><a href="../photos.html">Фотоальбом</a><a class="active" href="../games.html">Игры</a><a class="nav-cta" href="../achievements.html">Достижения года</a></nav></div></header><main class="game-main"><section class="container game-fill"><div class="game-info"><a class="back-link" href="../games.html">← Все игры</a><p class="section-kicker">Симулятор · биржа</p><h1 class="game-title">Космобиржа</h1><p class="game-rules">Три монеты — три характера: MOON дешевле всех и дёргается сильнее, SATURN держится середины, SOLAR SYSTEM — самая дорогая и спокойная. Переключайте вкладки: у каждой монеты свой свечной график и своя сделка. Зелёная свеча — цена выросла, красная — упала. В кошельке — только целые монеты.</p><p class="game-hint">1 · 2 · 3 — вкладки монет, B — купить, S — продать</p></div><div class="game-shell"><div class="game-hud"><span class="tag">Баланс · <b id="hud-balance">1 000 ₡</b></span><span class="tag">Капитал · <b id="hud-capital">1 000 ₡</b></span><span class="tag">Цель · <b>5 000 ₡</b></span><span class="tag">Рекорд · <b id="hud-best">—</b></span><button class="hud-btn" id="btn-pause" type="button">Пауза</button><button class="hud-btn" id="btn-restart" type="button">Заново</button><span class="game-status" id="game-status" aria-live="polite">Торги не начаты</span></div><div class="goal-track" aria-hidden="true"><i id="goal-fill"></i></div><div class="coin-tabs" role="tablist" aria-label="Выбор монеты"><button type="button" class="coin-tab is-active" role="tab" aria-selected="true" data-tab="0" title="Moon Coin"><i style="--c:#25b7e3"></i><span>MOON</span><b data-tab-price>—</b></button><button type="button" class="coin-tab" role="tab" aria-selected="false" data-tab="1" title="Saturn Coin"><i style="--c:#b8e51b"></i><span>SAT</span><b data-tab-price>—</b></button><button type="button" class="coin-tab" role="tab" aria-selected="false" data-tab="2" title="Solar System Coin"><i style="--c:#ff9b29"></i><span>SOL</span><b data-tab-price>—</b></button></div><div class="game-stage" id="chart-stage"><canvas id="chart" aria-label="Свечной график выбранной монеты"></canvas><div class="chart-caption"><b data-caption-name>Moon Coin</b><span data-caption-change>0%</span></div><div class="game-overlay" id="game-overlay"><p class="game-overlay-kicker" id="overlay-kicker">Космобиржа · старт</p><h3 id="overlay-title">Торги открываются</h3><p id="overlay-text">На счету 1 000 ₡. Три монеты ждут на вкладках — выберите одну и торгуйте по её свечам. Цель — капитал 5 000 ₡.</p><button class="button primary" id="game-action" type="button">Открыть торги</button></div></div><div class="trade-panel"><div class="trade-facts"><b class="trade-price" data-price>—</b><span class="trade-change" data-change>0%</span><span class="trade-hold">В кошельке: <b data-hold>0</b> <span data-hold-ticker>MOON</span></span></div><div class="trade-controls"><div class="qty"><button type="button" data-step="-1" aria-label="Меньше">−</button><input type="number" min="1" step="1" value="10" inputmode="numeric" data-qty aria-label="Количество монет"><button type="button" data-step="1" aria-label="Больше">+</button></div><button type="button" class="trade-btn buy" data-buy>Купить</button><button type="button" class="trade-btn sell" data-sell>Продать</button></div></div></div></section></main><footer class="site-footer"><div class="container footer-inner"><p>Школа будущего · 8 «К»</p><nav class="footer-links"><a href="../../index.html">Главная</a><a href="../achievements.html">Достижения</a><a href="../games.html">Игры</a></nav></div></footer><script src="../../script.js"></script><script src="../../site-config.js"></script><script src="../../trade-game.js"></script></body></html>
