@@ -56,12 +56,22 @@ function renderTeachers(){
   element.innerHTML = teachers.map(([name, subject, image]) => `<article class="teacher-card"><img src="${teacherRoot}${image}" alt="${esc(name)}"><h3>${esc(name)}</h3><p>${esc(subject)}</p></article>`).join('');
 }
 
+const studentDetails = {
+  'maksim-vinogradov': {
+    achievements: 'Победы в олимпиадах по английскому языку и по программированию.',
+    projects: 'Работа над сайтом школы и разработка лунохода.',
+    interests: 'Программирование, английский язык и математика.'
+  }
+};
+
 function renderProfile(){
   const element = document.querySelector('[data-profile]');
   if(!element) return;
   const id = new URLSearchParams(location.search).get('id') || 'new-student';
   const [name, role, image] = students.find((item) => item[3] === id) || students.at(-1);
-  element.innerHTML = `<a class="back-link" href="../../index.html#students">← Вернуться к ученикам</a><div class="student-profile"><div class="profile-photo">${image ? `<img src="${photoRoot}${image}" alt="${esc(name)}">` : '<div class="placeholder" style="height:100%;padding:85px 20px"><div class="placeholder-mark">+</div><p>Фото появится позже</p></div>'}</div><div class="profile-content"><div class="profile-meta"><span class="tag">Ученик класса</span><span>8 «К» · 2026</span></div><h1 class="page-title" style="font-size:clamp(40px,5vw,68px)">${esc(name)}</h1><p>${esc(role)}. Здесь появится личная история, интересы и важные этапы школьного пути.</p><div class="profile-cards"><article class="info-card"><h3>Достижения</h3><p>Добавьте олимпиады, конкурсы, проекты и другие результаты.</p></article><article class="info-card"><h3>Проекты</h3><p>Место для описания командной и индивидуальной работы.</p></article><article class="info-card"><h3>Интересы</h3><p>Здесь можно рассказать о хобби, навыках и мечтах ученика.</p></article><article class="info-card"><h3>Галерея</h3><p>Фотографии и материалы будут добавлены позже.</p></article></div></div></div>`;
+  const details = studentDetails[id] || {};
+  const infoCard = (title, text, fallback) => `<article class="info-card"><h3>${title}</h3><p>${esc(text || fallback)}</p></article>`;
+  element.innerHTML = `<a class="back-link" href="../../index.html#students">← Вернуться к ученикам</a><div class="student-profile"><div class="profile-photo">${image ? `<img src="${photoRoot}${image}" alt="${esc(name)}">` : '<div class="placeholder" style="height:100%;padding:85px 20px"><div class="placeholder-mark">+</div><p>Фото появится позже</p></div>'}</div><div class="profile-content"><div class="profile-meta"><span class="tag">Ученик класса</span><span>8 «К» · 2026</span></div><h1 class="page-title" style="font-size:clamp(40px,5vw,68px)">${esc(name)}</h1><p>${esc(role)}. Здесь появится личная история, интересы и важные этапы школьного пути.</p><div class="profile-cards">${infoCard('Достижения', details.achievements, 'Добавьте олимпиады, конкурсы, проекты и другие результаты.')}${infoCard('Проекты', details.projects, 'Место для описания командной и индивидуальной работы.')}${infoCard('Интересы', details.interests, 'Здесь можно рассказать о хобби, навыках и мечтах ученика.')}${infoCard('Галерея', details.gallery, 'Фотографии и материалы будут добавлены позже.')}</div></div></div>`;
 }
 
 function initHeroScrollCue(){
@@ -457,4 +467,30 @@ function initArticleViewer(){
   }, { passive: true });
 }
 
-document.addEventListener('DOMContentLoaded', () => { renderStudents(); renderTeachers(); renderProfile(); applySiteConfig(); initHeroScrollCue(); initCosmicScene(); initPhotoViewer(); initScrollDock(); initArticleViewer(); });
+function initPageTransitions(){
+  let leaving = false;
+  window.addEventListener('pageshow', (event) => {
+    if(event.persisted){
+      leaving = false;
+      document.body.getAnimations().forEach((animation) => animation.cancel());
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if(leaving || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a[href]');
+    if(!link || (link.target && link.target !== '_self') || link.hasAttribute('download')) return;
+    const target = new URL(link.href, location.href);
+    if(target.protocol !== location.protocol || target.host !== location.host) return;
+    if(!/\.html?$/i.test(target.pathname)) return;
+    if(target.hash && target.pathname === location.pathname) return;
+    event.preventDefault();
+    if(prefersReducedMotion()){ location.href = target.href; return; }
+    leaving = true;
+    try {
+      document.body.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, easing: 'ease', fill: 'forwards' });
+    } catch(error) {}
+    setTimeout(() => { location.href = target.href; }, 180);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderStudents(); renderTeachers(); renderProfile(); applySiteConfig(); initHeroScrollCue(); initCosmicScene(); initPhotoViewer(); initScrollDock(); initArticleViewer(); initPageTransitions(); });

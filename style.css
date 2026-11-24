@@ -132,6 +132,10 @@ body.article-lightbox-locked{overflow:hidden}
 /* Theme switch fades colours instead of snapping, but only while the toggle runs. */
 @media(prefers-reduced-motion:no-preference){html.theme-fade *,html.theme-fade *::before,html.theme-fade *::after{transition:background-color .38s ease,color .38s ease,border-color .38s ease,box-shadow .38s ease,fill .38s ease!important}}
 
+/* Page-to-page fade: pages appear softly, internal links fade out in script.js before the jump. */
+@keyframes page-fade-in{from{opacity:0}to{opacity:1}}
+body{animation:page-fade-in .3s ease}
+
 /* Dark theme: cosmic surfaces for the whole site, hero and page heroes already dark. */
 [data-theme="dark"]{color-scheme:dark;--paper:#071523;--ink-2:#c9dae6;--muted:#93a8b9;--line:rgba(255,255,255,.12);--blue-deep:#5ccdf0;--lime-deep:#b8e51b;--text:#e8f2f8;--surface:#0e2131;--surface-2:#0a1a2a}
 [data-theme="dark"] body{background:var(--paper);color:var(--text)}
