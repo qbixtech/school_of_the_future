@@ -38,8 +38,8 @@ const teachers = [
 ];
 
 const root = location.pathname.includes('/pages/students/') ? '../../' : location.pathname.includes('/pages/') ? '../' : './';
-const photoRoot = `${root}Фото 8K/1/Ученики/`;
-const teacherRoot = `${root}Фото 8K/Учителя/`;
+const photoRoot = `${root}photos/students/`;
+const teacherRoot = `${root}photos/teachers/`;
 const esc = (value) => String(value).replace(/[&<>'"]/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 
 function renderStudents(){
